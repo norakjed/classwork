@@ -52,7 +52,6 @@ class HomeViewModel extends ChangeNotifier {
 
   void play(Song song) {
     playerState.start(song);
-    notifyListeners();
   }
 
   void stop() {

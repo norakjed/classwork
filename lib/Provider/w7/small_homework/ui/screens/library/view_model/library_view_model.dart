@@ -33,4 +33,13 @@ class LibraryViewModel extends ChangeNotifier {
   void stop() {
     playerState.stop();
   }
+
+  @override
+  void dispose() {
+    playerState.removeListener(notifyListeners);
+    super.dispose();
+  }
 }
+
+
+
