@@ -26,61 +26,49 @@ class _HomeContentState extends State<HomeContent> {
             SizedBox(height: 16),
             Text(mv.viewTitle, style: AppTextStyles.heading),
             SizedBox(height: 50),
- 
-            Card(
-              color: Colors.grey[200] ,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ExpansionTile(
-                shape: Border(),
-                title: Text("My favorite songs", style: AppTextStyles.title),
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: mv.favoriteSongs.length,
-                    itemBuilder: (context, index) => SongTile(
-                      song: mv.favoriteSongs[index],
-                      isPlaying: mv.isSongPlaying(mv.favoriteSongs[index]),
-                      onTap: () {
-                        mv.start(mv.favoriteSongs[index]);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
- 
+
+
+            ListCard(cardTitle:"Favorites song", listSongs: mv.favoriteSongs, mv: mv),
+
             SizedBox(height: 20),
- 
-            Card(
-              color: Colors.grey[200],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ExpansionTile(
-                shape: Border(),
-                title: Text("My last songs", style: AppTextStyles.title),
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: mv.lastPlayedSongs.length,
-                    itemBuilder: (context, index) => SongTile(
-                      song: mv.lastPlayedSongs[index],
-                      isPlaying: mv.isSongPlaying(mv.lastPlayedSongs[index]),
-                      onTap: () {
-                        mv.start(mv.lastPlayedSongs[index]);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
- 
+
+            ListCard(cardTitle:"Last play song", listSongs: mv.lastPlayedSongs, mv: mv),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ListCard extends StatelessWidget {
+  const ListCard({super.key, required this.mv, required this.cardTitle, required this.listSongs});
+
+  final HomeViewModel mv;
+  final String cardTitle;
+  final List listSongs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.grey[200],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ExpansionTile(
+        shape: Border(),
+        title: Text(cardTitle),
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: listSongs.length,
+            itemBuilder: (context, index) => SongTile(
+              song: listSongs[index],
+              isPlaying: mv.isSongPlaying(listSongs[index]),
+              onTap: () {
+                mv.start(listSongs[index]);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
