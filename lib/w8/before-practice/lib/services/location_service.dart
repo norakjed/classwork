@@ -1,4 +1,6 @@
-import 'package:blabla/data/dummy_data.dart';
+
+
+import 'package:classwork/w8/before-practice/lib/data/dummy_data.dart';
 
 import '../model/ride/locations.dart';
 

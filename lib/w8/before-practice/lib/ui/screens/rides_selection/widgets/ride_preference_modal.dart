@@ -1,4 +1,5 @@
-import 'package:blabla/ui/widgets/pickers/bla_ride_preference_picker.dart';
+
+import 'package:classwork/w8/before-practice/lib/ui/widgets/pickers/bla_ride_preference_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/ride_pref/ride_pref.dart';
