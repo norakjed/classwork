@@ -9,11 +9,15 @@ class SongTile extends StatelessWidget {
     required this.song,
     required this.isPlaying,
     required this.onTap,
+    required this.artist,
+    required this.genre,
   });
 
   final Song song;
   final bool isPlaying;
   final VoidCallback onTap;
+  final String artist;
+  final String genre;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,13 @@ class SongTile extends StatelessWidget {
         child: ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(song.imageUrl.toString()),
+          ),
+          subtitle: Row(
+            children: [
+              Text("${song.duration.inMinutes} mn"),
+              const SizedBox(width: 10),
+              Text("$artist - $genre"),
+            ],
           ),
           onTap: onTap,
           title: Text(song.title),
