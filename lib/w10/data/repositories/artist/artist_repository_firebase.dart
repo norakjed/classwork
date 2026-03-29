@@ -10,22 +10,32 @@ import 'artist_repository.dart';
 class ArtistRepositoryFirebase implements ArtistRepository {
   final Uri artistsUri = FirebaseConfig.baseUri.replace(path: '/artists.json');
 
+  List<Artist>? _cachedArtists;
+
   @override
-  Future<List<Artist>> fetchArtists() async {
+  Future<List<Artist>> fetchArtists({bool forceFetch = false}) async {
+    // 1. Return cache if available and not forced
+    if (_cachedArtists != null && !forceFetch) {
+      return _cachedArtists!;
+    }
+
+    // 2. Otherwise fetch from API
     final http.Response response = await http.get(artistsUri);
 
     if (response.statusCode == 200) {
-      // 1 - Send the retrieved list of songs
-      Map<String, dynamic> songJson = json.decode(response.body);
+      Map<String, dynamic> artistJson = json.decode(response.body);
 
       List<Artist> result = [];
-      for (final entry in songJson.entries) {
+      for (final entry in artistJson.entries) {
         result.add(ArtistDto.fromJson(entry.key, entry.value));
       }
-      return result;
+
+      // 3.Store in cache
+      _cachedArtists = result;
+ 
+      return _cachedArtists!;
     } else {
-      // 2- Throw expcetion if any issue
-      throw Exception('Failed to load posts');
+      throw Exception('Failed to load artists');
     }
   }
 

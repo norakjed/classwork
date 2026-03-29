@@ -1,3 +1,4 @@
+import 'package:classwork/w10/data/repositories/songs/song_repository_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../theme/theme.dart';
@@ -52,9 +53,18 @@ class LibraryContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 16),
-          Text("Library", style: AppTextStyles.heading),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width: 40),
+              Text("Library", style: AppTextStyles.heading),
+              IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () => mv.fetchSong(forceFetch: true),
+              ),
+            ],
+          ),
           SizedBox(height: 50),
-
           Expanded(child: content),
         ],
       ),
