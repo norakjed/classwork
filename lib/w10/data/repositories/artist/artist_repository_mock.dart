@@ -1,3 +1,7 @@
+import 'package:classwork/w10/model/comment/comment.dart';
+
+import 'package:classwork/w10/model/songs/song.dart';
+
 import '../../../model/artist/artist.dart';
 import 'artist_repository.dart';
 
@@ -19,5 +23,23 @@ class ArtistRepositoryMock implements ArtistRepository {
         orElse: () => throw Exception("No artist with id $id in the database"),
       );
     });
+  }
+
+  @override
+  Future<List<Comment>> fetchCommentsByArtist(String artistId) {
+    // TODO: implement fetchCommentsByArtist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Song>> fetchSongsByArtist(String artistId) {
+    // TODO: implement fetchSongsByArtist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Comment> postComment(String artistId, String text) {
+    // TODO: implement postComment
+    throw UnimplementedError();
   }
 }

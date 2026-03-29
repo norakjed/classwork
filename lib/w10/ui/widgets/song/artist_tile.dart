@@ -1,12 +1,9 @@
+import 'package:classwork/w10/ui/screens/artist_details/artist_details_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../model/artist/artist.dart';
 
 class ArtistTile extends StatelessWidget {
-  const ArtistTile({
-    super.key,
-    required this.artist,
-    
-  });
+  const ArtistTile({super.key, required this.artist});
 
   final Artist artist;
 
@@ -20,11 +17,20 @@ class ArtistTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ArtistDetailScreen(artist: artist),
+              ),
+            );
+          },
           title: Text(artist.name),
           subtitle: Text("Genre: ${artist.genre}"),
           leading: CircleAvatar(
             backgroundImage: NetworkImage(artist.imageUrl.toString()),
           ),
+          trailing: Icon(Icons.chevron_right),
         ),
       ),
     );
